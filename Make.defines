@@ -1,0 +1,30 @@
+# Common make definitions
+
+# Definitions required in all program directories to compile and link
+# C programs using gcc.
+
+SHELL := bash
+.ONESHELL:
+.SHELLFLAGS := -eu -o pipefail -c
+.DELETE_ON_ERROR:
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules
+
+ifeq ($(origin .RECIPEPREFIX), undefined)
+	$(error This Make does not support .RECIPEPREFIX. Please use GNU Make 4.0 or later)
+endif
+.RECIPEPREFIX = >
+
+AR = $(shell which ar)
+CC = $(shell which gcc)
+OS = $(shell uname -s)
+
+CFLAGS = -ansi -I$(ROOT)/include -Wall -Werror -DLINUX -D_GNU_SOURCE $(EXTRA)
+EXTRA =
+EXTRALIBS =
+LDDIR = -L$(ROOT)/lib
+LDLIBS = $(LDDIR) -ltool $(EXTRALIBS)
+LIBTOOL = $(ROOT)/lib/libtool.a
+
+# Common temp files to delete from each directory.
+TEMPFILES = core core.* *.o temp.* *.out
