@@ -28,7 +28,7 @@ target_link_libraries(simpled PUBLIC tools)
 add_executable(selectd date_process.c select_serve.c server.c)
 target_link_libraries(selectd PUBLIC tools)
 
-add_executable(filed file_process.c select_serve.c server.c)
+add_executable(filed fetch.c file_process.c select_serve.c server.c)
 target_link_libraries(filed PUBLIC tools)
 
 install(TARGETS client simpled selectd filed DESTINATION bin)

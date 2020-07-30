@@ -1,7 +1,5 @@
 #include "tool.h"
 #include <arpa/inet.h>
-#include <netdb.h>
-#include <netinet/in.h>
 #include <sys/socket.h>
 
 extern void process(int);

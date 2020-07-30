@@ -3,10 +3,11 @@
 
 #define BUFLEN 128
 
+extern int fetch_file_contents(int, const char *, const char *);
+
 void process(int sockfd)
 {
     char buf[BUFLEN], msg[BUFLEN], filename[BUFLEN];
-    /* FILE *fp; */
     int nbytes;
     char *prefix = "/file/";
 
@@ -29,10 +30,14 @@ void process(int sockfd)
     }
     else
     {
-        int fnlen = nbytes - strlen(prefix);
+        int fnlen, rc;
+        fnlen = nbytes - strlen(prefix);
         memcpy(filename, &msg[strlen(prefix)], fnlen);
         filename[fnlen] = '\0';
         fprintf(stderr, "Server: got filename '%s'\n", filename);
+        rc = fetch_file_contents(sockfd, filename, "./files");
+        if (rc < 0)
+            fprintf(stderr, "Server: fetch file contents failed\n");
     }
 
     close(sockfd);
