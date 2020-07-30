@@ -20,14 +20,18 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 # add the executable
 add_executable(client client.c)
+target_link_libraries(client PUBLIC tools)
 
-add_executable(simple simple_server.c server.c)
-target_link_libraries(simple PUBLIC tools)
+add_executable(simpled simple_serve.c server.c)
+target_link_libraries(simpled PUBLIC tools)
 
-add_executable(select select_server.c server.c)
-target_link_libraries(select PUBLIC tools)
+add_executable(selectd date_process.c select_serve.c server.c)
+target_link_libraries(selectd PUBLIC tools)
 
-install(TARGETS client simple DESTINATION bin)
+add_executable(filed file_process.c select_serve.c server.c)
+target_link_libraries(filed PUBLIC tools)
+
+install(TARGETS client simpled selectd filed DESTINATION bin)
 install(
     FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/tool.h"
     DESTINATION include
