@@ -1,10 +1,7 @@
 ROOT = .
 include $(ROOT)/Make.defines
 
-SRCS     := client.c
-SERVERS  := select_server.c simple_server.c
-OBJS     := $(SERVERS:c=o)
-PROGS    := client select simple
+PROGS    := client filed selectd simpled
 
 .PHONY: all clean
 all: $(PROGS)
@@ -12,11 +9,14 @@ all: $(PROGS)
 client : client.o $(LIBTOOL) Makefile
 > $(CC) $< -o $@ $(LDLIBS)
 
-simple : simple_server.o server.o $(LIBTOOL) Makefile
+filed : file_process.o select_serve.o server.o $(LIBTOOL) Makefile
+> $(CC) $< select_serve.o server.o -o $@ $(LDLIBS)
+
+simpled : simple_serve.o server.o $(LIBTOOL) Makefile
 > $(CC) $< server.o -o $@ $(LDLIBS)
 
-select : select_server.o server.o $(LIBTOOL) Makefile
-> $(CC) $< server.o -o $@ $(LDLIBS)
+selectd : date_process.o select_serve.o server.o $(LIBTOOL) Makefile
+> $(CC) $< select_serve.o server.o -o $@ $(LDLIBS)
 
 %.o : %.c $(LIBTOOL)
 > $(CC) $(CFLAGS) -c $<
