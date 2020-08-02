@@ -31,6 +31,9 @@ target_link_libraries(selectd PUBLIC tools)
 add_executable(filed fetch.c file_process.c select_serve.c server.c)
 target_link_libraries(filed PUBLIC tools)
 
+add_executable(aioserver aio_serve.c server.c)
+target_link_libraries(aioserver PUBLIC rt tools)
+
 install(TARGETS client simpled selectd filed DESTINATION bin)
 install(
     FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/tool.h"

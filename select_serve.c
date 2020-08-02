@@ -1,5 +1,6 @@
 #include "tool.h"
 #include <arpa/inet.h>
+#include <sys/select.h>
 #include <sys/socket.h>
 
 extern void process(int);

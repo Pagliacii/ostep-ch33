@@ -9,6 +9,7 @@
 #include <unistd.h>  /* for convenience */
 
 #define MAXSLEEP 128
+#define MAXREQS 128
 
 /*
  * Prototypes for our own functions.
